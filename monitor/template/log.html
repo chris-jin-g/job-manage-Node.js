@@ -1,0 +1,16 @@
+<% layout('layout') -%>
+<h3><%= title %> of Job <%= job_name %></h3>
+<p>
+    <a href="/">BACK</a>
+</p>
+<pre>
+    <%= head %>
+</pre>
+<% if (tail) { %>
+<pre>
+.............................................
+</pre>
+<pre>
+    <%= tail %>
+</pre>
+<% } %>

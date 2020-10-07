@@ -1,0 +1,85 @@
+<% if (delayJobs.length > 0) { %>
+<table width="1000" border="1" frame="hsides" rules="groups" style="width:1000px;background-color:#FF9966;">
+  <caption>
+    <div style="margin-top:14pt;margin-bottom:14pt;"><font face="verdana" color="navy"><span style="font-size:100%;">Delayed jobs</span></font>
+    </div>
+  </caption>
+  <colgroup width="350" style="width:350px;"></colgroup>
+  <colgroup width="150" style="width:150px;"></colgroup>
+  <colgroup width="300" style="width:300px;"></colgroup>
+  <colgroup width="200" style="width:200px;"></colgroup>
+  <tbody>
+    <tr>
+      <td align="left" style="text-align:justify;">
+        <div><font color="navy">job_name</font>
+        </div>
+      </td>
+      <td align="left" style="text-align:justify;">
+        <div><font color="navy">current_partition</font>
+        </div>
+      </td>
+      <td align="left" style="text-align:justify;">
+        <div><font color="navy">latency</font>
+        </div>
+      </td>
+      <td align="left" style="text-align:justify;">
+        <div><font color="navy">author</font>
+        </div>
+      </td>
+    </tr>
+    <% for (var i = 0; i < delayJobs.length; i ++) {
+      var item = delayJobs[i]
+    %>
+    <tr>
+      <td align="left" style="text-align:justify;"><%= item.job.name %></td>
+      <td align="left" style="text-align:justify;"><%= partition(item.job.frequency, item.job.current_partition_time) %></td>
+      <td align="left" style="text-align:justify;"><%= formatDuration(item.delayDuration) %></td>
+      <td align="left" style="text-align:justify;"><%= item.job.author %></td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+<% } %>
+
+<% if (errorJobs.length > 0) { %>
+<table width="1000" border="1" frame="hsides" rules="groups" style="width:1000px;background-color:#FF9966;">
+  <caption>
+    <div style="margin-top:14pt;margin-bottom:14pt;"><font face="verdana" color="navy"><span style="font-size:100%;">Error jobs</span></font>
+    </div>
+  </caption>
+  <colgroup width="350" style="width:350px;"></colgroup>
+  <colgroup width="150" style="width:150px;"></colgroup>
+  <colgroup width="300" style="width:300px;"></colgroup>
+  <colgroup width="200" style="width:200px;"></colgroup>
+  <tbody>
+    <tr>
+      <td align="left" style="text-align:justify;">
+        <div><font color="navy">job_name</font>
+        </div>
+      </td>
+      <td align="left" style="text-align:justify;">
+        <div><font color="navy">current_partition</font>
+        </div>
+      </td>
+      <td align="left" style="text-align:justify;">
+        <div><font color="navy">status</font>
+        </div>
+      </td>
+      <td align="left" style="text-align:justify;">
+        <div><font color="navy">author</font>
+        </div>
+      </td>
+    </tr>
+    <% for (var i = 0; i < errorJobs.length; i ++) {
+      var item = errorJobs[i]
+    %>
+    <tr>
+      <td align="left" style="text-align:justify;"><%= item.job.name %></td>
+      <td align="left" style="text-align:justify;"><%= partition(item.job.frequency, item.job.current_partition_time) %></td>
+      <td align="left" style="text-align:justify;"><%= item.job.status %></td>
+      <td align="left" style="text-align:justify;"><%= item.job.author %></td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+<% } %>

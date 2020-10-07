@@ -1,0 +1,19 @@
+{
+    "frequency": "quarterly",
+    "author": "Tingzhao Yu",
+    "dependencies": [{
+        "job": "demo.b"
+    }],
+    "tasks": [{
+        "plugin": "base",
+        "retry": "true",
+        "config": {
+            "command": "test \"\\`date \"+%M\"\\`\" -gt \"03\""
+        }
+    }, {
+        "plugin": "python",
+        "config": {
+            "file": "src/demo.a/test.py"
+        }
+    }]
+}

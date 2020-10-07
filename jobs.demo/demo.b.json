@@ -1,0 +1,11 @@
+{
+    "frequency": "quarterly",
+    "author": "Tingzhao Yu",
+    "dependencies": [],
+    "tasks": [{
+        "plugin": "base",
+        "config": {
+            "command": "echo \"test demo b DATE:$DATE\""
+        }
+    }]
+}

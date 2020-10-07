@@ -1,0 +1,23 @@
+
+source ./resources/common_shell.sh
+
+# Variables need to fill when running this shell
+PARTITION=$1
+DATE=$2
+YEAR=$3
+MONTH=$4
+SHORT_DATE=$5
+HOUR=$6
+QUARTER=$7
+
+echo "Job shell cmd params: $@"
+
+PROD_ROOT="{prod_root}"
+JOB_NAME="{job_name}"
+FREQUENCY="{frequency}"
+
+JOB_COMMAND_LIST_RETRY_FLAG={job_command_list_retry_flag}
+JOB_COMMAND_LIST="{job_command_list}"
+RETRY_INTERVAL={retry_interval}
+
+ExecuteJob

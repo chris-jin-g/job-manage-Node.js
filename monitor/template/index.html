@@ -1,0 +1,98 @@
+<% layout('layout') -%>
+
+<h1>Jobs Monitor</h1>
+<div class="row">
+  <div class="col-md-12">
+    <b>Totol Count:</b> <%= jobs.length %> |
+    <b>Auto Update Page:</b> <input type="checkbox" checked id="jm-auto-update">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>name</th>
+          <th>current_partition</th>
+          <th>end_partition</th>
+          <th>average processing time</th>
+          <!--
+          <th>latency</th>
+          <th>average latency</th>
+          -->
+          <th>current_status</th>
+          <th>pid</th>
+          <th>frequency</th>
+          <th>start_time</th>
+          <th>author</th>
+          <th>command</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% jobs.forEach(function(job){ %>
+        <tr>
+          <td><%= job.name %></td>
+          <td><%= partition(job.frequency, job.current_partition_time) %></td>
+          <td><button class="btn btn-xs btn-default jm-endtime" data-partition="<%= partition(job.frequency, job.current_partition_time) %>" data-name="<%= job.name %>"><%= partition(job.frequency, job.end_partition_time) %></button></td>
+          <td><%= formatDuration(job.average_processing_time) %></td>
+          <!--
+          <td><%= formatDuration(job.latency) %></td>
+          <td><%= formatDuration(job.average_latency) %></td>
+          -->
+          <td>
+            <%
+            switch (job.status) {
+              case 'success':
+            %>
+            <span class="label label-success"><%= job.status %></span>
+            <%
+              break
+              case 'failed':
+              case 'error':
+            %>
+            <span class="label label-danger" data-toggle="tooltip" data-placement="top" title="<%= job.message %>">
+              <%= job.status %>
+            </span>
+            <%
+              break
+              case 'stop':
+            %>
+            <span class="label label-default"><%= job.status %></span>
+            <%
+              break
+              case 'processing':
+            %>
+            <span class="label label-primary"><%= job.status %></span>
+            <%
+              break
+              case 'waiting':
+            %>
+            <span class="label label-warning"><%= job.status %></span>
+            <%
+              break
+              default:
+            %>
+            <span class="label label-warning"><%= job.info %></span>
+            <%
+            }
+            %>
+          </td>
+          <td><%= job.pid || 'N/A' %></td>
+          <td><%= job.frequency %></td>
+          <td><%= formatTime(job.start_time) %></td>
+          <td><%= job.author %></td>
+          <td>
+            <div>
+              <button class="btn btn-primary btn-xs jm-start" data-partition="<%= partition(job.frequency, job.current_partition_time) %>" data-name="<%= job.name %>">Start</button>
+              <button class="btn btn-danger btn-xs jm-stop" data-name="<%= job.name %>">Stop</button>
+              <button class="btn btn-danger btn-xs jm-delete" data-name="<%= job.name %>">Delete</button>
+              <a class="btn btn-default btn-xs" href="/log?job_name=<%= job.name %>">Log</a>
+              <a class="btn btn-default btn-xs" href="/config?job_name=<%= job.name %>">Config</a>
+            </div>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
